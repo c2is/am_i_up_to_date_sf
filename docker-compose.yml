@@ -1,0 +1,67 @@
+application:
+    image: debian:stretch
+    volumes:
+        - ./:/var/www/website
+    tty: true
+#db:
+#    image: mysql:5.7
+#    ports:
+#        - "3306:3306"
+#    environment:
+#        MYSQL_DATABASE: bundle_reporting_sf
+#        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+php:
+    image: c2is/ubuntu-php:7.2
+    volumes_from:
+        - application
+#    links:
+#        - db
+#        - mail
+    environment:
+        - APP_ENV=dev
+
+#composer:
+#    image: composer
+#    volumes_from:
+#        - application
+#    links:
+#        - db
+#    environment:
+#      - APP_ENV=dev
+
+apache:
+    image: c2is/debian-apache
+    environment:
+        - WEBSITE_HOST=bundle-reporting-sf.dev.acti
+        - CERTIFICAT_CNAME=bundle-reporting-sf.dev.acti
+        - VHOST_SUFFIX=web
+    ports:
+        - "80:80"
+        - "443:443"
+    links:
+        - php
+    volumes_from:
+        - application
+#mail:
+#    image: catatnight/postfix
+#    environment:
+#        - maildomain=bundle-reporting-sf.dev.acti
+#        - smtp_user=web:web
+#    ports:
+#        - "25"
+#
+#mailcatcher:
+#   image: schickling/mailcatcher
+#   ports:
+#      - "1080:1080"
+#
+#phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    links:
+#      - db:db
+#    ports:
+#      - "8081:80"
+#    environment:
+#     - PMA_ARBITRARY=1
+#    volumes:
+#      - /sessions
