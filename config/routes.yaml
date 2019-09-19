@@ -1,3 +1,8 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+version_reporting:
+    path: /url-au-choix
+    controller: Acti\VersionBundle\Controller\VersionController:renderVersion
+    methods: POST
