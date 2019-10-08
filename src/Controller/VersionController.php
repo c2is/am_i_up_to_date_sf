@@ -2,9 +2,9 @@
 
 namespace Acti\VersionBundle\Controller;
 
-use App\Kernel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Kernel;
 
 class VersionController extends AbstractController
 {
@@ -21,20 +21,21 @@ class VersionController extends AbstractController
      */
     public function renderVersion(Request $request)
     {
-        dump($request);
-
-//        die();
-
-//        if($request->getMethod() === 'GET'){
-            if ($request->query->get('token_version') === $this->token) {
+        if($request->getMethod() === Request::METHOD_GET){
+            if ($request->headers->get('apikey') === $this->token) {
                 return $this->json([
                     'php' => (explode('-', phpversion()))[0],
                     'cms' => 'symfony-' . Kernel::VERSION,
                 ]);
             } else {
-                throw $this->createAccessDeniedException();
+                return $this->json([
+                    'message' => 'Token invalide',
+                ], 401);
             }
-//        }
-
+        } else {
+            return $this->json([
+                'message' => '404 route non trouvée',
+            ], 404);
+        }
     }
 }

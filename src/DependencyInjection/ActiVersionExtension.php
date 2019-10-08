@@ -22,6 +22,7 @@ class ActiVersionExtension extends Extension {
         );
 
         $loader->load('services.yaml');
+//        $loader->load('nelmio_cors.yaml');
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
