@@ -18,20 +18,14 @@ class ActiVersionExtension extends Extension {
     {
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator(__DIR__ . '/../Ressources/config')
+            new FileLocator(__DIR__ . '/../Resources/config')
         );
 
-//        dump($this->getAlias()); die();
         $loader->load('services.yaml');
-        $loader->load('nelmio_cors.yaml');
-//        $loader->load('routes.yaml');
-
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-//        $container->setParameter('acti_version.path', $config['path']);
         $container->setParameter('acti_version.token', $config['token']);
-
     }
 }

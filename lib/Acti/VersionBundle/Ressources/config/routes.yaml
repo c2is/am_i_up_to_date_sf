@@ -1,8 +1,0 @@
-#acti_version.render_version:
-#    controller: Acti\VersionBundle\Controller\VersionController:renderVersion
-#    path: '/url1'
-    #    path: '%acti_version.path%'
-    #    methods: GET
-#    path: /url
-#    defaults:
-#        _controller: ActiVersionBundle:Version:renderVersion

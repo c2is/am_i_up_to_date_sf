@@ -5,4 +5,4 @@ services:
             $token: '%acti_version.token%'
 
 #imports:
-#    ressource: "Acti/VersionBundle/Ressources/config/routes.yaml"
+#    ressource: "Acti/VersionBundle/Resources/config/routes.yaml"

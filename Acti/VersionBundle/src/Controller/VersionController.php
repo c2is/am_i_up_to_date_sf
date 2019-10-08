@@ -23,13 +23,13 @@ class VersionController extends AbstractController
     {
         dump($request);
 
-        die();
+//        die();
 
 //        if($request->getMethod() === 'GET'){
             if ($request->query->get('token_version') === $this->token) {
                 return $this->json([
                     'php' => (explode('-', phpversion()))[0],
-                    'symfony' => 'symfony-' . Kernel::VERSION,
+                    'cms' => 'symfony-' . Kernel::VERSION,
                 ]);
             } else {
                 throw $this->createAccessDeniedException();

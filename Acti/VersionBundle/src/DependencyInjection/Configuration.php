@@ -21,10 +21,6 @@ class Configuration implements ConfigurationInterface {
 
         $rootNode
             ->children()
-//                ->scalarNode('path')
-//                    ->isRequired()
-//                    ->cannotBeEmpty()
-//                ->end()
                 ->scalarNode('token')
                     ->isRequired()
                     ->cannotBeEmpty()
