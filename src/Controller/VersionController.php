@@ -10,9 +10,12 @@ class VersionController extends AbstractController
 {
     private $token;
 
-    public function __construct($token)
+    private $path;
+
+    public function __construct($token, $path)
     {
         $this->token = $token;
+        $this->path = $path;
     }
 
     /**
@@ -23,10 +26,31 @@ class VersionController extends AbstractController
     {
         if($request->getMethod() === Request::METHOD_GET){
             if ($request->headers->get('apikey') === $this->token) {
+
+                $composerLock = null;
+                $plugins = [];
+
+                try {
+                    $composerLock = json_decode(file_get_contents($this->path.'/composer.lock'));
+                } catch (\Exception $e){
+                    // on ne fait rien
+                }
+
+                if(!empty($composerLock->packages)) {
+                    foreach ($composerLock->packages as $package){
+                        if(substr($package->version, 0, 1) === 'v'){
+                            $plugins[$package->name] = substr($package->version, 1);
+                        } else {
+                            $plugins[$package->name] = $package->version;
+                        }
+                    }
+                }
+
                 return $this->json([
                     'php' => (explode('-', phpversion()))[0],
                     'cms' => 'symfony-' . Kernel::VERSION,
-                ]);
+                    'plugins' => $plugins,
+                ], 200);
             } else {
                 return $this->json([
                     'message' => 'Token invalide',

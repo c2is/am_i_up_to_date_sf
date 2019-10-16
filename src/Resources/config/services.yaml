@@ -3,6 +3,7 @@ services:
         tags: ['controller.service_arguments']
         bind:
             $token: '%acti_version.token%'
+            $path: '%acti_version.path%'
 
 #imports:
 #    ressource: "Acti/VersionBundle/Resources/config/routes.yaml"

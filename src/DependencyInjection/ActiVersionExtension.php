@@ -22,11 +22,11 @@ class ActiVersionExtension extends Extension {
         );
 
         $loader->load('services.yaml');
-//        $loader->load('nelmio_cors.yaml');
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('acti_version.token', $config['token']);
+        $container->setParameter('acti_version.path', $config['path']);
     }
 }
