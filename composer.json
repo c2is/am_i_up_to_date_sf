@@ -1,5 +1,5 @@
 {
-    "name": "acti/version-bundle",
+    "name": "acti/am_i_up_to_date_sf",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
